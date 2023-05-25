@@ -10,12 +10,12 @@
  *  (PTL) Patriarch library : pstring.h
  */
 
+#pragma once
 #ifndef _PTL_PSTRING
-#define _PTL_PSTRING 1
+#define _PTL_PSTRING
 
 #include "ptype.h"
 #include <iostream>
-#include <cstring>
 #include <utility>
 
 namespace ptl
@@ -30,7 +30,10 @@ namespace ptl
    *   - конструктор перемещения
    *   - конструктор присвоения перемещения
    * Методы:
+   *   - at() - возвращает указатель на строку
    *   - size() - возвращает размер строки
+   *   - s_len() - возвращает размер строки
+   *   - s_cpy() - копирует строку
    *   - swap() - обмен значениями двух объектов
    */
 
@@ -41,12 +44,12 @@ namespace ptl
     char*  _M_string{ }; // Указатель на строку
 
   public:
-    explicit pstring(const char* __s)
+    explicit pstring(char const* __s)
     {
-      _M_size   = strlen(__s) + 1;
+      _M_size   = s_len(__s);
       _M_string = new char[_M_size];
 
-      strcpy(_M_string, __s);
+      s_cpy(_M_string, __s);
     }
 
     pstring(const pstring& __other)
@@ -54,7 +57,7 @@ namespace ptl
       _M_string = new char[__other._M_size];
       _M_size   = __other._M_size;
 
-      strcpy(_M_string, __other._M_string);
+      s_cpy(_M_string, __other._M_string);
     }
 
     pstring& 
@@ -63,21 +66,21 @@ namespace ptl
       _M_string = new char[__other._M_size];
       _M_size   = __other._M_size;
 
-      strcpy(_M_string, __other._M_string);
+      s_cpy(_M_string, __other._M_string);
     }
 
-    /** Конструктор копирования перемещения
+    /** Конструктор копирования перемещения.
      */
     pstring(pstring&& __other) noexcept
     {
       _M_string = __other._M_string;
       _M_size   = __other._M_size;
 
-      __other._M_string = mullptr;
+      __other._M_string = nullptr;
       __other._M_size   = 0;
     }
 
-    /** Конструктор присваивания перемещения
+    /** Конструктор присваивания перемещения.
      */
     pstring& 
     operator=(pstring&& __other) noexcept
@@ -85,7 +88,7 @@ namespace ptl
       _M_string = __other._M_string;
       _M_size   = __other._M_size;
 
-      __other._M_string = mullptr;
+      __other._M_string = nullptr;
       __other._M_size   = 0;
 
       return *this;
@@ -95,14 +98,45 @@ namespace ptl
     { delete[] _M_string; }
 
     /*
-     * Метод, возвращающий размер строки
+     * Метод, возвращает указатель на строку.
+     */
+    auto
+    at() -> char*
+    { return _M_string; }
+
+    /*
+     * Метод, возвращающий размер строки.
      */
     auto
     size() -> __u16
     { return _M_size; }
 
     /*
-     * Обмен значениями двух объектов
+     * Метод, возвращающий размер строки без
+     * использования библиотечной функции strlen().
+     */
+    auto
+    s_len(char const* __s) -> __u16
+    {
+      __u16 __i;
+      for (__i = 0; __s[__i] != '\0'; ++__i);
+      return ++__i; 
+    }
+
+    /*
+     * Метод, копирует строку __s2 в __s1 без
+     * использования библиотечной функции strcpy().
+     */
+    auto
+    s_cpy(char* __s1, char const* __s2) -> char*
+    {
+      for (__u16 __i{0}; __i < s_len(__s2); ++__i)
+        __s1[__i] = __s2[__i];
+      return __s1;
+    }
+
+    /*
+     * Обмен значениями двух объектов.
      */
     auto
     swap(pstring& __a, pstring& __b) -> void
@@ -112,17 +146,17 @@ namespace ptl
       __b = std::move(__temp);
     }
 
-    friend ostream& 
-    operator<<(ostream& __os, const pstring& __s);
+//    friend ostream& 
+//    operator<<(ostream& __os, const pstring& __s);
   };
-
+/*
   ostream& 
   operator<<(ostream& __os, const pstring& __s)
   {
     __os << __s._M_string;
     return __os;
   }
-
+*/
 } // namespace ptl
 
 #endif // _PTL_PSTRING
