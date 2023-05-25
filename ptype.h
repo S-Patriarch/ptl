@@ -10,8 +10,9 @@
  *  (PTL) Patriarch library : ptype.h
  */
 
+#pragma once
 #ifndef _PTL_PTYPE
-#define _PTL_PTYPE 1
+#define _PTL_PTYPE
 
 namespace ptl
 {

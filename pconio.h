@@ -10,8 +10,9 @@
  *  (PTL) Patriarch library : pconio.h
  */
 
+#pragma once
 #ifndef _PTL_PCONIO
-#define _PTL_PCONIO 1
+#define _PTL_PCONIO
 
 #include <iostream>
 #include <clocale>

@@ -10,8 +10,9 @@
  *  (PTL) Patriarch library : pmath.h
  */
 
+#pragma once
 #ifndef _PTL_PMATH
-#define _PTL_PMATH 1
+#define _PTL_PMATH
 
 #include "ptype.h"
 #include "pexcept.h"

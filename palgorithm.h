@@ -10,8 +10,9 @@
  *  (PTL) Patriarch library : palgorithm.h
  */
 
+#pragma once
 #ifndef _PTL_PALGORITHM
-#define _PTL_PALGORITHM 1
+#define _PTL_PALGORITHM
 
 #include "ptype.h"
 #include <utility>

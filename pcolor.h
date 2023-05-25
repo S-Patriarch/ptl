@@ -10,8 +10,9 @@
  *  (PTL) Patriarch library : pcolor.h
  */
 
+#pragma once
 #ifndef _PTL_COLOR
-#define _PTL_COLOR 1
+#define _PTL_COLOR
 
 #include "ptype.h"
 #include "pexcept.h"

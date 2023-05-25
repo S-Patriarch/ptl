@@ -10,8 +10,9 @@
  *  (PTL) Patriarch library : pvector.h
  */
 
+#pragma once
 #ifndef _PTL_PVECTOR
-#define _PTL_PVECTOR 1
+#define _PTL_PVECTOR
 
 #include "ptype.h"
 #include "pexcept.h"

@@ -10,8 +10,9 @@
  *  (PTL) Patriarch library : pexcept.h
  */
 
+#pragma once
 #ifndef _PTL_PEXCEPT
-#define _PTL_PEXCEPT 1
+#define _PTL_PEXCEPT
 
 #include <exception>
 
