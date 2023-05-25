@@ -24,7 +24,8 @@ namespace ptl
    * Класс строка.
    *
    * Конструкторы:
-   *   - явный конструктор создания
+   *   - конструктор создания
+   *   - конструктор создания пустой строки
    *   - конструктор копирования
    *   - конструктор присваения копирования
    *   - конструктор перемещения
@@ -40,16 +41,23 @@ namespace ptl
   class pstring 
   {
   private:
-    __u16  _M_size{ };   // Размер строки
-    char*  _M_string{ }; // Указатель на строку
+    __u16  _M_size;   // Размер строки
+    char*  _M_string; // Указатель на строку
 
   public:
-    explicit pstring(char const* __s)
+    pstring(char const* __s)
     {
       _M_size   = s_len(__s);
       _M_string = new char[_M_size];
 
       s_cpy(_M_string, __s);
+    }
+
+    pstring()
+    {
+      _M_size = 1;
+      _M_string = new char[_M_size];
+      _M_string[0] = '\0';
     }
 
     pstring(const pstring& __other)
