@@ -15,7 +15,11 @@
 #define _PTL_PCONIO
 
 #include <iostream>
+
+#ifdef _WIN32
 #include <clocale>
+#include <windows.h>
+#endif
 
 namespace ptl
 {
@@ -28,13 +32,27 @@ namespace ptl
   { std::cout << "\033[2J\033[1;1H"; }
 
   /* 
-   * Локализация терминала ОС Windows 'Russian'.
+   * Локализация консоли ОС Windows для вывода
+   * текста на русском языке.
    */ 
   auto
   setlocale_WIN32_rus() -> void
   {
     #ifdef _WIN32
       setlocale(LC_ALL, "Russian");
+    #endif
+  }
+
+  /* 
+   * Локализация консоли ОС Windows для ввода/вывода
+   * текста на русском языке.
+   */ 
+  auto
+  setconsole_WIN32_rus() -> void
+  {
+    #ifdef _WIN32
+      SetConsoleCP(1251);
+      SetConsoleOutputCP(1251);
     #endif
   }
 
