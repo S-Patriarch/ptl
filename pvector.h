@@ -48,6 +48,8 @@ namespace ptl
    *   - swap() - меняет местами элементы контейнера по заданным индексам
    *   - empty() - определяет, пустой ли контейнер
    *   - doubles() - вычисляет, есть ли в контейнере дубли
+   *   - unique() - находит и возращает элемент контейнера, имеющий
+   *     наибольшее количество повторений в контейнере
    * 
    * Варианты инициализации контейнера:
    * @code
@@ -532,6 +534,90 @@ namespace ptl
             }
         }
       return false;
+    }
+
+    /*
+     * Находит и возращает элемент контейнера, имеющий
+     * наибольшее количество повторений в контейнере.
+     */
+    auto
+    unique() -> _Tp
+    {
+      /** Массив количества каждого  элемента.
+       */
+      __u32* 
+      __unique_counts = new __u32[size()];
+
+      /** Массив уникальных элементов.
+       */
+      _Tp*
+      __unique_elements = new _Tp[size()];
+
+      /** Счетчик уникальных элементов.
+       */
+      __u32 __unique_counter{ 0 };
+
+      /** Реализация первой части алгоритма, ищем количество повторений
+       *  для каждого уникального элемента.
+       */
+
+      for (__u32 __i{0}; __i < size(); __i++)
+        {
+          /** Переменная для запоминания индекса найденного элемента.
+           */
+          __s32 __existing_index{-1};
+
+          for (__u32 __j{0}; __j < __unique_counter; __j++)
+            {
+              /** Поиск __i-ого элемента среди уже 
+               *  обработанных элементов.
+               */
+              if (__unique_elements[__j] == _M_data[__i])
+                {
+                  __existing_index = __j;
+
+                  /** Увеличили количество повторений на 1.
+                   */
+                  __unique_counts[__j]++; 
+                  break;
+                }
+            }
+
+            if (__existing_index == -1)
+              {
+                /** Если элемент еще не встречался, то запомним его.
+                 */
+                __unique_elements[__unique_counter] = _M_data[__i];
+                __unique_counts[__unique_counter] = 1;
+                __unique_counter++;
+              }
+        }
+
+      __u32 
+      __max_unique_count_index{ 0 };
+
+      __u32
+      __max_unique_count = __unique_counts[0];
+
+      /** Реализация второй части алгоритма, среди посчитанных
+       *  повторений ищем максимальное.
+       */
+
+      for (__u32 __i{0}; __i < __unique_counter; __i++)
+        {
+          if (__max_unique_count < __unique_counts[__i])
+            {
+              __max_unique_count_index = __i;
+            }
+        }
+
+      _Tp
+      __return_elements = __unique_elements[__max_unique_count_index];
+
+      delete[] __unique_counts;
+      delete[] __unique_elements;
+
+      return __return_elements;
     }
 
   };
