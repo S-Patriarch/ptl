@@ -35,7 +35,9 @@ namespace ptl
    *   - size() - возвращает размер строки
    *   - s_len() - возвращает размер строки
    *   - s_cpy() - копирует строку
+   *   - s_cat() - объединяет две строки
    *   - swap() - обмен значениями двух объектов
+   *   - del_all_char() - удаление всех символов в строке, кроме цифровых
    */
 
   class pstring 
@@ -138,8 +140,35 @@ namespace ptl
     auto
     s_cpy(char* __s1, char const* __s2) -> char*
     {
-      for (__u16 __i{0}; __i < s_len(__s2); ++__i)
-        __s1[__i] = __s2[__i];
+      __u16 __s_len = s_len(__s2);
+
+      for (__u16 __i{0}; __i < __s_len; ++__i)
+        {
+          __s1[__i] = __s2[__i];
+        }
+
+      return __s1;
+    }
+
+    /*
+     * Метод, объединяет две строки без
+     * использования библиотечной функции strcat().
+     */
+    auto
+    s_cat(char* __s1, char const* __s2) -> char*
+    {
+      __u16 __i{ };
+
+      /** Вычисляется длина __s1 и помещяется в __i.
+       */
+      for (__i = 0; __s1[__i] != '\0'; ++__i);
+
+      for (__u16 __j{0}; __s2[__j] != '\0'; ++__j, ++__i)
+        {
+          __s1[__i] = __s2[__j];
+        }
+
+      __s1[__i] = '\0';
       return __s1;
     }
 
@@ -152,6 +181,27 @@ namespace ptl
       pstring __temp{ std::move(__a) };
       __a = std::move(__b);
       __b = std::move(__temp);
+    }
+
+    /*
+     * Удаление всех символов в строке, кроме цифровых.
+     */
+    auto
+    del_all_char() -> char*
+    {
+      for (__u16 __i{0}; _M_string[__i] != '\0'; ++__i)
+        {
+          while (!(_M_string[__i] >= '0' && _M_string[__i] <= '9')
+                && _M_string[__i] != '\0')
+            {
+              for (__u16 __j{__i};  _M_string[__j] != '\0'; ++__j)
+                {
+                  _M_string[__j] = _M_string[__j+1];
+                }
+            }
+        }
+
+      return _M_string;
     }
 
 //    friend ostream& 
