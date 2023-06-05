@@ -50,6 +50,10 @@ pmath.h
 palgorithm.h
 Описание библиотеки для работы с алгоритмами.
 
+  Нахождение максимального элемента массива.
+  template <typename _Tp> 
+    get_max(_Tp* __array, __u32 __size_array) -> _Tp
+
   Обмен значениями двух объектов.
   template <typename _Tp> 
     swap(_Tp&, _Tp&) -> void
