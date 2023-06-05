@@ -21,6 +21,13 @@
 #include <windows.h>
 #endif
 
+/*
+ * Функции:
+ *   - clear() - очистка терминала
+ *   - setlocale_WIN32_rus() - локализация консоли ОС Windows для вывода
+ *   - setconsole_WIN32_rus() - локализация консоли ОС Windows для ввода/вывода
+ */
+
 namespace ptl
 {
   /* 
