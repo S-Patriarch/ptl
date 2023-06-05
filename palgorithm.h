@@ -17,8 +17,36 @@
 #include "ptype.h"
 #include <utility>
 
+/*
+ * Функции:
+ *   - get_max() - нахождение максимального элемента массива
+ *   - swap() - обмен значениями двух объектов
+ *   - quick_sort() - быстрая сортировка
+ *   - bubble_sort() - пузырьковая сортировка
+ */
+
 namespace ptl
 {
+  /* 
+   * Нахождение максимального элемента массива.
+   */
+  template <typename _Tp> 
+    auto
+    get_max(_Tp* __array, __u32 __size_array) -> _Tp
+    {
+      _Tp __max{ __array[0] };
+
+      for (__u32 __i{0}; __i < __size_array; __i++)
+        {
+          if (__array[__i] > __max)
+            {
+              __max = __array[__i];
+            }
+        }
+
+      return __max;
+    }
+
   /* 
    * Обмен значениями двух объектов.
    * 
@@ -67,10 +95,10 @@ namespace ptl
     auto
     quick_sort(_Tp* __array, __u32 __low, __u32 __high) -> void
     {
-      __u32  __i{ __low };
-      __u32  __j{ __high };
-      _Tp    __y{ };
-      _Tp    __z{ __array[(__low + __high) / 2] }; // Опорный элемент
+      __u32 __i{ __low };
+      __u32 __j{ __high };
+      _Tp   __y{ };
+      _Tp   __z{ __array[(__low + __high) / 2] }; // Опорный элемент
       
       do
         {
