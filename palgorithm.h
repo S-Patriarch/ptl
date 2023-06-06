@@ -11,7 +11,7 @@
  */
 
 #pragma once
-#ifndef _PTL_PALGORITHM
+#if !defined(_PTL_PALGORITHM)
 #define _PTL_PALGORITHM
 
 #include "ptype.h"

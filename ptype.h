@@ -11,7 +11,7 @@
  */
 
 #pragma once
-#ifndef _PTL_PTYPE
+#if !defined(_PTL_PTYPE)
 #define _PTL_PTYPE
 
 /*

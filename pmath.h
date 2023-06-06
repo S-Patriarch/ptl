@@ -11,7 +11,7 @@
  */
 
 #pragma once
-#ifndef _PTL_PMATH
+#if !defined(_PTL_PMATH)
 #define _PTL_PMATH
 
 #include "ptype.h"

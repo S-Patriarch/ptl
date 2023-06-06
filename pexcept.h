@@ -11,7 +11,7 @@
  */
 
 #pragma once
-#ifndef _PTL_PEXCEPT
+#if !defined(_PTL_PEXCEPT)
 #define _PTL_PEXCEPT
 
 #include <exception>

@@ -11,7 +11,7 @@
  */
 
 #pragma once
-#ifndef _PTL_PCONIO
+#if !defined(_PTL_PCONIO)
 #define _PTL_PCONIO
 
 #include <iostream>

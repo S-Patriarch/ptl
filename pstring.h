@@ -11,7 +11,7 @@
  */
 
 #pragma once
-#ifndef _PTL_PSTRING
+#if !defined(_PTL_PSTRING)
 #define _PTL_PSTRING
 
 #include "ptype.h"

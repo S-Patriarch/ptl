@@ -11,7 +11,7 @@
  */
 
 #pragma once
-#ifndef _PTL_COLOR
+#if !defined(_PTL_COLOR)
 #define _PTL_COLOR
 
 #include "ptype.h"

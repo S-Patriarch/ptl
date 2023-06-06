@@ -11,7 +11,7 @@
  */
 
 #pragma once
-#ifndef _PTL_PVECTOR
+#if !defined(_PTL_PVECTOR)
 #define _PTL_PVECTOR
 
 #include "ptype.h"
