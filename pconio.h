@@ -14,6 +14,10 @@
 #if !defined(_PTL_PCONIO_H)
 #define _PTL_PCONIO_H
 
+#if !defined(_PTL_PTYPE_H)
+#include "ptype.h"
+#endif
+
 #include <iostream>
 
 #ifdef _WIN32
@@ -23,20 +27,22 @@
 
 /*
  * Функции:
- *   - clear() - очистка терминала
  *   - setlocale_WIN32_rus() - локализация консоли ОС Windows для вывода
  *   - setconsole_WIN32_rus() - локализация консоли ОС Windows для ввода/вывода
+ *   - clrscr() - очистка терминала
+ *   - clreol() - удаляет все символы после курсора до конца строки
+ *   - gotoxy() - постановка курсора в координаты __x и __y терминала
+ *   - where_x() - возвращает установленную координату __text._S_cur_x
+ *   - where_y() - возвращает установленную координату __text._S_cur_y
  */
 
 namespace ptl
 {
-  /* 
-   * Очистка терминала и постановка курсора в 
-   * верхний левый угол.
-   */
-  auto
-  clear() -> void
-  { std::cout << "\033[2J\033[1;1H"; }
+  struct textinfo
+  {
+    __u16  _S_cur_x{ 0 };
+    __u16  _S_cur_y{ 0 };
+  } __text;
 
   /* 
    * Локализация консоли ОС Windows для вывода
@@ -62,6 +68,54 @@ namespace ptl
       SetConsoleOutputCP(1251);
     #endif
   }
+
+  /* 
+   * Очистка терминала и постановка курсора в 
+   * верхний левый угол.
+   */
+  auto
+  clrscr() -> void
+  { std::cout << "\033[2J\033[1;1H"; }
+
+  /* 
+   * Удаляет все символы, находящиеся после курсора и до конца
+   * строки, но не удаляет символы, расположенные перед
+   * текущей позицией курсора.
+   */
+  auto
+  clreol() -> void
+  { std::cout << "\033[K"; }
+
+  /* 
+   * Постановка курсора в координаты __x и __y терминала.
+   */ 
+  auto
+  gotoxy(__u16 __x, __u16 __y) -> void
+  { 
+    std::cout 
+      << "\033[" 
+      << __y 
+      << ";" 
+      << __x 
+      << "H";
+
+    __text._S_cur_x = __x;
+    __text._S_cur_y = __y;
+  }
+
+  /* 
+   * Возвращает установленную координату __text._S_cur_x.
+   */ 
+  auto
+  where_x() -> __u16
+  { return __text._S_cur_x; }
+
+  /* 
+   * Возвращает установленную координату __text._S_cur_y.
+   */ 
+  auto
+  where_y() -> __u16
+  { return __text._S_cur_y; }
 
 } // namespace ptl
 
