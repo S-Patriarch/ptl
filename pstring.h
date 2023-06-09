@@ -11,10 +11,13 @@
  */
 
 #pragma once
-#if !defined(_PTL_PSTRING)
-#define _PTL_PSTRING
+#if !defined(_PTL_PSTRING_H)
+#define _PTL_PSTRING_H
 
+#if !defined(_PTL_PTYPE_H)
 #include "ptype.h"
+#endif
+
 #include <iostream>
 #include <utility>
 
@@ -217,4 +220,4 @@ namespace ptl
 */
 } // namespace ptl
 
-#endif // _PTL_PSTRING
+#endif // _PTL_PSTRING_H

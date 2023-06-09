@@ -11,11 +11,15 @@
  */
 
 #pragma once
-#if !defined(_PTL_PVECTOR)
-#define _PTL_PVECTOR
+#if !defined(_PTL_PVECTOR_H)
+#define _PTL_PVECTOR_H
 
+#if !defined(_PTL_PTYPE_H)
 #include "ptype.h"
+#endif
+#if !defined(_PTL_PEXCEPT_H)
 #include "pexcept.h"
+#endif
 
 namespace ptl
 {
@@ -624,4 +628,4 @@ namespace ptl
 
 } // namespace ptl
 
-#endif // _PTL_PVECTOR
+#endif // _PTL_PVECTOR_H

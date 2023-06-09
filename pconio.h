@@ -11,8 +11,8 @@
  */
 
 #pragma once
-#if !defined(_PTL_PCONIO)
-#define _PTL_PCONIO
+#if !defined(_PTL_PCONIO_H)
+#define _PTL_PCONIO_H
 
 #include <iostream>
 
@@ -65,4 +65,4 @@ namespace ptl
 
 } // namespace ptl
 
-#endif // _PTL_PCONIO
+#endif // _PTL_PCONIO_H

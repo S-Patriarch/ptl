@@ -11,11 +11,15 @@
  */
 
 #pragma once
-#if !defined(_PTL_PMATH)
-#define _PTL_PMATH
+#if !defined(_PTL_PMATH_H)
+#define _PTL_PMATH_H
 
+#if !defined(_PTL_PTYPE_H)
 #include "ptype.h"
+#endif
+#if !defined(_PTL_PEXCEPT_H)
 #include "pexcept.h"
+#endif
 
 /*
  * Функции:
@@ -83,4 +87,4 @@ namespace ptl
 
 } // namespace ptl
 
-#endif // _PTL_PMATH
+#endif // _PTL_PMATH_H

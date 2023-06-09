@@ -11,10 +11,13 @@
  */
 
 #pragma once
-#if !defined(_PTL_PALGORITHM)
-#define _PTL_PALGORITHM
+#if !defined(_PTL_PALGORITHM_H)
+#define _PTL_PALGORITHM_H
 
+#if !defined(_PTL_PTYPE_H)
 #include "ptype.h"
+#endif
+
 #include <utility>
 
 /*
@@ -157,4 +160,4 @@ namespace ptl
 
 } // namespace ptl
 
-#endif // _PTL_PALGORITHM
+#endif // _PTL_PALGORITHM_H
