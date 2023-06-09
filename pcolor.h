@@ -53,30 +53,30 @@ namespace ptl
   public:
     pcolor()
     { 
-      _M_color_clear = "\x1b[0m";
+      _M_color_clear = "\033[0m";
 
       _M_text_color_regular = new std::string[_M_size_array]
       { 
-        "\x1b[30m", "\x1b[31m", "\x1b[32m", "\x1b[33m", 
-        "\x1b[34m", "\x1b[35m", "\x1b[36m", "\x1b[37m"
+        "\033[30m", "\033[31m", "\033[32m", "\033[33m", 
+        "\033[34m", "\033[35m", "\033[36m", "\033[37m"
       };
 
       _M_text_color_bold = new std::string[_M_size_array]
       { 
-        "\x1b[30;1m", "\x1b[31;1m", "\x1b[32;1m", "\x1b[33;1m", 
-        "\x1b[34;1m", "\x1b[35;1m", "\x1b[36;1m", "\x1b[37;1m"
+        "\033[30;1m", "\033[31;1m", "\033[32;1m", "\033[33;1m", 
+        "\033[34;1m", "\033[35;1m", "\033[36;1m", "\033[37;1m"
       };
 
       _M_background_color_regular = new std::string[_M_size_array]
       { 
-        "\x1b[40m", "\x1b[41m", "\x1b[42m", "\x1b[43m", 
-        "\x1b[44m", "\x1b[45m", "\x1b[46m", "\x1b[47m"
+        "\033[40m", "\033[41m", "\033[42m", "\033[43m", 
+        "\033[44m", "\033[45m", "\033[46m", "\033[47m"
       };
 
       _M_background_color_bold = new std::string[_M_size_array]
       { 
-        "\x1b[40;1m", "\x1b[41;1m", "\x1b[42;1m", "\x1b[43;1m", 
-        "\x1b[44;1m", "\x1b[45;1m", "\x1b[46;1m", "\x1b[47;1m"
+        "\033[40;1m", "\033[41;1m", "\033[42;1m", "\033[43;1m", 
+        "\033[44;1m", "\033[45;1m", "\033[46;1m", "\033[47;1m"
       };
     }
 
