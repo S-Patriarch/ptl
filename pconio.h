@@ -19,6 +19,8 @@
 #endif
 
 #include <iostream>
+#include <termios.h>
+#include <stdio.h>
 
 #ifdef _WIN32
 #include <clocale>
@@ -34,6 +36,8 @@
  *   - gotoxy() - постановка курсора в координаты __x и __y терминала
  *   - where_x() - возвращает установленную координату __text._S_cur_x
  *   - where_y() - возвращает установленную координату __text._S_cur_y
+ *   - getche() - ввод одного символа с отображением этого символа
+ *   - getch() - ввод одного символа без отображения этого символа
  */
 
 namespace ptl
@@ -116,6 +120,50 @@ namespace ptl
   auto
   where_y() -> __u16
   { return __text._S_cur_y; }
+
+  /* 
+   * Получает пользовательский ввод в форме одного символа с 
+   * отображением этого символа на экране и без необходимости 
+   * нажимать клавишу 'Enter'.
+   */ 
+  auto
+  getche() -> __u16
+  {
+    struct termios __t;
+    __u16          __c;
+
+    tcgetattr(0, &__t);
+    __t.c_lflag &= ~ICANON;
+    tcsetattr(0, TCSANOW, &__t);
+    fflush(stdout);
+    __c = getchar();
+    __t.c_lflag |= ICANON;
+    tcsetattr(0, TCSANOW, &__t);
+
+    return __c;
+  }
+
+  /* 
+   * Получает пользовательский ввод в форме одного символа без 
+   * отображения этого символа на экране и без необходимости 
+   * нажимать клавишу 'Enter'.
+   */ 
+  auto
+  getch() -> __u16
+  {
+    struct termios __t;
+    __u16          __c;
+
+    tcgetattr(0, &__t);
+    __t.c_lflag &= ~ECHO + ~ICANON;
+    tcsetattr(0, TCSANOW, &__t);
+    fflush(stdout);
+    __c = getchar();
+    __t.c_lflag |= ICANON + ECHO;
+    tcsetattr(0, TCSANOW, &__t);
+
+    return __c;
+  }
 
 } // namespace ptl
 
