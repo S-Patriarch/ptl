@@ -27,6 +27,7 @@
  *   - quick_sort() - быстрая сортировка
  *   - bubble_sort() - пузырьковая сортировка
  *   - merge_sort() - сортировка слиянием
+ *   - insertion_sort() - сртировка вставками
  */
 
 namespace ptl
@@ -229,6 +230,37 @@ namespace ptl
 
     merge(__array, __l, __m, __r);
   }
+
+  /*
+   * Сортировка вставками.
+   * Хорошо работает с небольшим набором данных, хоть и меет достаточно
+   * большую вычислительную сложность на большом объеме данных.
+   * 
+   * @code
+   *   ptl::insertion_sort<int>(__array, cst::_Size_Array);
+   * @endcode
+   */
+  template <typename _Tp>
+    auto
+    insertion_sort(_Tp* __array, __u32 __size_array) -> void 
+    { 
+      for (__u32 __i{1}; __i < __size_array; __i++) 
+        {
+          _Tp   __key{ __array[__i] }; 
+          __u32 __j{ __i - 1 }; 
+       
+          /** Сдвигаем элементы __array[0..__i-1], которые больше чем
+           *  __key, на одну позицию вперед.
+           */
+          while (__j >= 0 && __array[__j] > __key)
+            {
+              __array[__j+1] = __array[__j];
+              __j = __j - 1;
+            }
+
+          __array[__j+1] = __key;
+        }
+    }
 
 } // namespace ptl
 
