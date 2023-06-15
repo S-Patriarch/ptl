@@ -11,13 +11,13 @@
  */
 
 #pragma once
-#if !defined(_PTL_COLOR_H)
-#define _PTL_COLOR_H
+#if !defined( _PTL_PCOLOR_H )
+#define _PTL_PCOLOR_H
 
-#if !defined(_PTL_PTYPE_H)
+#if !defined( _PTL_PTYPE_H )
 #include "ptype.h"
 #endif
-#if !defined(_PTL_PEXCEPT_H)
+#if !defined( _PTL_PEXCEPT_H )
 #include "pexcept.h"
 #endif
 
@@ -167,4 +167,4 @@ namespace ptl
 
 } // namespace ptl
 
-#endif // _PTL_COLOR_H
+#endif // _PTL_PCOLOR_H
