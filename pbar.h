@@ -24,20 +24,22 @@
 
 #include <iostream>
 #include <string>
-#include <chrono>
-#include <thread>
 
 namespace ptl
 {
-  /*
+  /**
    * Класс индикаторов выполнения.
    *
-   * Конструкторы:
-   *   - конструктор создания
    * Методы:
-   *   - get_min()
-   *   - get_max()
-   *   - progress_bar()
+   *   - set_min() - установить минимальную процентную итерацию
+   *   - set_max() - установить максимальную процентную итерацию
+   *   - set_style() - установить стиль индикатора
+   *   - set_message() - установить сообщение индикатора
+   *   - set_brackets() - установить границы индикатора
+   *   - set_color() - установить цвет индикатора
+   *   - get_min() - получить минимальную процентную итерацию
+   *   - get_max() - получить максимальную процентную итерацию
+   *   - update() - обновить отрисовку индикатора
    *
    * @code
    *   ptl::pbar pb;
@@ -54,44 +56,90 @@ namespace ptl
   class pbar
   {
   private:
-    __u32        _M_current_iteration;
-    __u32        _M_total_iterations;
-    __s32        _M_sleep;
-    __u16        _M_bar_width;
-    __u16        _M_bar_color;
-    std::string  _M_bar;
+    __u32        _M_min_iterations{ 0 };
+    __u32        _M_max_iterations{ 100 };
+    __u16        _M_bar_width{ 30 };
+    __u16        _M_bar_color{ 1000 };
+    std::string  _M_bar{ "=" };
+    std::string  _M_style{ "complete" };
+    std::string  _M_percent{ "%" };
+    std::string  _M_message{ };
+    std::string  _M_bracket_left{ "[" };
+    std::string  _M_bracket_rigth{ "]" };
 
   public:
     pbar()
-    {
-      _M_current_iteration = 0;
-      _M_total_iterations  = 100;
-      _M_sleep             = 50;
-      _M_bar_width         = 30;
-      _M_bar_color         = 1000;
-      _M_bar               = "=";
-    }
+    { }
 
     ~pbar() noexcept
     { }
 
     auto
+    set_min( __u32 __min ) -> void
+    { _M_min_iterations = __min; }
+
+    auto
+    set_max( __u32 __max ) -> void
+    { _M_max_iterations = __max; }
+
+    auto
+    set_style( std::string __style, 
+               std::string __percent ) -> void
+    {
+      _M_style   = __style;
+      _M_percent = __percent;
+    }
+
+    auto
+    set_style( std::string __style, 
+               std::string __percent,
+               std::string __bar ) -> void
+    {
+      _M_style   = __style;
+      _M_percent = __percent;
+      _M_bar     = __bar;
+    }
+
+    auto
+    set_message( std::string __message ) -> void
+    { _M_message = __message; }
+
+    auto
+    set_brackets( std::string __bracket_left,
+                  std::string __bracket_rigth ) -> void
+    {
+      _M_bracket_left  = __bracket_left;
+      _M_bracket_rigth = __bracket_rigth;
+    }
+
+    auto
+    set_color( __u16 __color ) -> void
+    { _M_bar_color = __color; }
+
+    auto
     get_min() -> __u32
-    { return _M_current_iteration; }
+    { return _M_min_iterations; }
 
     auto
     get_max() -> __u32
-    { return _M_total_iterations; }
+    { return _M_max_iterations; }
 
+    /*
+     * Обновление отрисовки индикатора выполнения.
+     */
     auto
-    progress_bar( __u32 __index ) -> void
+    update( __u32 __index ) -> void
     {
-      float  __progress{ static_cast<float>( __index ) / _M_total_iterations };
+      /** Вычисление процента выполнения.
+       */
+      float  __progress{ static_cast<float>( __index ) / _M_max_iterations };
       __u16  __completed_width{ static_cast<__u16>( __progress * _M_bar_width ) };
 
       pcolor c;
 
-      std::cout << "[";
+      /** Вывод индикатора выполнения.
+       */
+      std::cout << _M_bracket_left;
 
       for( ptl::__u16 __i{ 0 }; __i <= _M_bar_width; ++__i )
         {
@@ -108,13 +156,15 @@ namespace ptl
             std::cout << " " ;
         }
 
-      std::cout << "] "
+      std::cout << _M_bracket_rigth
+                << " "
                 << ptl::__u16( __progress * 100.0 )
-                << "%"
-                << '\r';
-      std::cout.flush();
+                << _M_percent
+                << " "
+                << _M_message
+                << "\r";
 
-      std::this_thread::sleep_for( std::chrono::milliseconds( _M_sleep ) );
+      std::cout.flush();
     }
   };
 
