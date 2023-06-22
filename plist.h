@@ -15,46 +15,36 @@
 #if !defined( _PTL_PLIST_H )
 #define _PTL_PLIST_H
 
+#if !defined( _PTL_PNODE_H )
+#include "pnode.h"
+#endif
+
 #if !defined( _PTL_PTYPE_H )
 #include "ptype.h"
 #endif
 
 #include <iostream>
 
+/*
+ * Связанный список данных. 
+ *
+ * Методы:
+ *   - add() - вставка в конец списка
+ *   - add_front() - вставка в начало списка
+ *   - insert() - вставка в середину списка
+ *   - remove() - удаление узла списка по значению
+ *   - remove_position() - удаление узла списка по позиции
+ *   - show() - вывод содержимого списка через пробел
+ *   - clear() - удаление всего списка
+ *
+ * @code
+ *   ptl::plist<ptl::__s32> list;
+ *   list. ...;
+ * @endcode
+ */
+
 namespace ptl
   {
-
-  /*
-   * Связанный список данных. 
-   *
-   * Методы:
-   *   - push_back() - вставка в конец списка
-   *   - push_front() - вставка в начало списка
-   *   - insert() - вставка в середину списка
-   *   - delete_node() - удаление узла списка по значению
-   *   - delete_pos() - удаление узла списка по позиции
-   *   - show() - вывод содержимого списка через пробел
-   *   - clear() - удаление всего списка
-   *
-   * @code
-   *   ptl::plist<ptl::__s32> list;
-   *   list. ...;
-   * @endcode
-   */
-
-  /*
-   * Узел связанного списка данных.
-   */
-  template <typename _Tp> 
-  class pnode
-    {
-    public:
-      pnode( _Tp __data ) : _M_data( __data ), _M_next( nullptr )
-        { }
-
-      _Tp          _M_data; // Значение, которое хранит узел.
-      pnode<_Tp>*  _M_next; // Указатель на адрес следующего узла списка.
-    };
 
   /*
    * Связанный список, который хранит узлы, а также 
@@ -67,11 +57,15 @@ namespace ptl
       pnode<_Tp>*  _M_head; // Начало связанного списка данных.
 
     public:
-      plist() : _M_head( nullptr )
+      plist() 
+        : _M_head( nullptr )
         { }
+
+      ~plist() noexcept
+        { clear(); }
       
       auto
-      push_back( _Tp __data ) -> void
+      add( _Tp __data ) -> void
         {
         /** Создаем новый узел.
          */
@@ -101,7 +95,7 @@ namespace ptl
         }
 
       auto
-      push_front( _Tp __data ) -> void
+      add_front( _Tp __data ) -> void
         {
         pnode<_Tp>* node = new pnode<_Tp>( __data );
         node->_M_next = _M_head;
@@ -159,7 +153,7 @@ namespace ptl
         }
 
       auto
-      delete_node( _Tp __data ) -> void
+      remove( _Tp __data ) -> void
         {
         pnode<_Tp>* temp = _M_head;
         pnode<_Tp>* prev = nullptr;
@@ -196,7 +190,7 @@ namespace ptl
         }
 
       auto
-      delete_pos( __u32 __position ) -> void
+      remove_position( __u32 __position ) -> void
         {
         pnode<_Tp>* temp = _M_head;
         pnode<_Tp>* prev = nullptr;
@@ -212,7 +206,7 @@ namespace ptl
 
         __u32  __curr_pos{ 0 };
 
-        while( __curr_pos < __position && temp->_M_next != nullptr )
+        while( temp != nullptr && __curr_pos < __position )
           {
           prev = temp;
           temp = temp->_M_next;

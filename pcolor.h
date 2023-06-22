@@ -16,20 +16,20 @@
 
 #include <string>
 
+/*
+ * Класс описывает работу с цветовой esc-последовательностью в 
+ * терминале (консоле)
+ * 
+ * Методы:
+ *   - esc_c()  - сбрасывает цветовую esc-последовательность
+ *   - esc_tr() - устанавливает обычный цвет текста
+ *   - esc_tb() - устанавливает жирный цвет текста
+ *   - esc_br() - устанавливает обычный цвет фона
+ *   - esc_bb() - устанавливает жирный цвет фона
+ */
+
 namespace ptl
   {
-
-  /*
-   * Класс описывает работу с цветовой esc-последовательностью в 
-   * терминале (консоле)
-   * 
-   * Методы:
-   *   - esc_c()  - сбрасывает цветовую esc-последовательность
-   *   - esc_tr() - устанавливает обычный цвет текста
-   *   - esc_tb() - устанавливает жирный цвет текста
-   *   - esc_br() - устанавливает обычный цвет фона
-   *   - esc_bb() - устанавливает жирный цвет фона
-   */
 
   enum color
     {
@@ -40,13 +40,13 @@ namespace ptl
   class pcolor
     {
     protected:
+      unsigned short int  _M_size_array{ 8 };
+
       std::string*        _M_text_color_regular; 
       std::string*        _M_text_color_bold;    
       std::string*        _M_background_color_regular;
       std::string*        _M_background_color_bold;
       std::string         _M_color_clear;
-
-      unsigned short int  _M_size_array{ 8 };
 
     public:
       pcolor()
@@ -100,8 +100,8 @@ namespace ptl
        * насыщенности по заданному __index от 0 до 7 включительно.
        */
       auto
-      esc_tr(color __index) -> std::string
-        { return _M_text_color_regular[__index]; }
+      esc_tr( color __index ) -> std::string
+        { return _M_text_color_regular[ __index ]; }
 
       /*
        * Устанавливает цвет текста.
@@ -109,8 +109,8 @@ namespace ptl
        * насыщенности по заданному __index от 0 до 7 включительно.
        */
       auto
-      esc_tb(color __index) -> std::string
-        { return _M_text_color_bold[__index]; }
+      esc_tb( color __index ) -> std::string
+        { return _M_text_color_bold[ __index ]; }
 
       /*
        * Устанавливает цвет фона.
@@ -118,8 +118,8 @@ namespace ptl
        * насыщенности по заданному __index от 0 до 7 включительно.
        */
       auto
-      esc_br(color __index) -> std::string
-        { return _M_background_color_regular[__index]; }
+      esc_br( color __index ) -> std::string
+        { return _M_background_color_regular[ __index ]; }
 
       /*
        * Устанавливает цвет фона.
@@ -127,8 +127,8 @@ namespace ptl
        * насыщенности по заданному __index от 0 до 7 включительно.
        */
       auto
-      esc_bb(color __index) -> std::string
-        { return _M_background_color_bold[__index]; }
+      esc_bb( color __index ) -> std::string
+        { return _M_background_color_bold[ __index ]; }
     };
 
   } // namespace ptl
