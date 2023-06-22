@@ -29,8 +29,8 @@
  * Связанный список данных. 
  *
  * Методы:
- *   - add() - вставка в конец списка
- *   - add_front() - вставка в начало списка
+ *   - push() - вставка в конец списка
+ *   - push_front() - вставка в начало списка
  *   - insert() - вставка в середину списка
  *   - remove() - удаление узла списка по значению
  *   - remove_position() - удаление узла списка по позиции
@@ -65,7 +65,7 @@ namespace ptl
         { clear(); }
       
       auto
-      add( _Tp __data ) -> void
+      push( _Tp __data ) -> void
         {
         /** Создаем новый узел.
          */
@@ -95,7 +95,7 @@ namespace ptl
         }
 
       auto
-      add_front( _Tp __data ) -> void
+      push_front( _Tp __data ) -> void
         {
         pnode<_Tp>* node = new pnode<_Tp>( __data );
         node->_M_next = _M_head;
