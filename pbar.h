@@ -53,7 +53,7 @@
 
 namespace ptl
   {
-
+//////////////////////////////////////////////////////////////////////
   class pbar
     {
     private:
@@ -74,15 +74,15 @@ namespace ptl
 
       ~pbar() noexcept
         { }
-
+//--------------------------------------------------------------------
       auto
       set_min( __u32 __min ) -> void
         { _M_min_iterations = __min; }
-
+//--------------------------------------------------------------------
       auto
       set_max( __u32 __max ) -> void
         { _M_max_iterations = __max; }
-
+//--------------------------------------------------------------------
       auto
       set_style( std::string __style, 
                  std::string __percent ) -> void
@@ -90,7 +90,7 @@ namespace ptl
         _M_style   = __style;
         _M_percent = __percent;
         }
-
+//--------------------------------------------------------------------
       auto
       set_style( std::string __style, 
                  std::string __percent,
@@ -100,11 +100,11 @@ namespace ptl
         _M_percent = __percent;
         _M_bar     = __bar;
         }
-
+//--------------------------------------------------------------------
       auto
       set_message( std::string __message ) -> void
         { _M_message = __message; }
-
+//--------------------------------------------------------------------
       auto
       set_brackets( std::string __bracket_left,
                     std::string __bracket_rigth ) -> void
@@ -112,19 +112,19 @@ namespace ptl
         _M_bracket_left  = __bracket_left;
         _M_bracket_rigth = __bracket_rigth;
         }
-
+//--------------------------------------------------------------------
       auto
       set_color( __u16 __color ) -> void
         { _M_bar_color = __color; }
-
+//--------------------------------------------------------------------
       auto
       get_min() -> __u32
         { return _M_min_iterations; }
-
+//--------------------------------------------------------------------
       auto
       get_max() -> __u32
         { return _M_max_iterations; }
-
+//--------------------------------------------------------------------
       /*
        * Обновление отрисовки индикатора выполнения.
        */

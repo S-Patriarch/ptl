@@ -29,6 +29,7 @@
 /*
  * Стек.
  * Реализован посредствам связанного списка.
+ * (последний пришел, первый ушел)
  *
  * Методы:
  *   - is_empty() - проверяет стек на пустату (true - пуст, false - нет)
@@ -39,7 +40,7 @@
 
 namespace ptl
   {
-
+//////////////////////////////////////////////////////////////////////
   template <typename _Tp> 
   class pstack
     {
@@ -63,11 +64,11 @@ namespace ptl
           delete temp;
           }
         }
-
+//--------------------------------------------------------------------
       auto
       is_empty() -> bool
         { return _M_top == nullptr; }
-
+//--------------------------------------------------------------------
       auto
       push( const _Tp& __data ) -> void
         {
@@ -77,13 +78,13 @@ namespace ptl
         temp->_M_next = _M_top;
         _M_top = temp;
         }
-
+//--------------------------------------------------------------------
       auto
       pop() -> _Tp
         {
         if( is_empty() )
           throw 
-          pexception("E: Стек пуст.");
+          pexception("W: Стек пуст.");
 
         _Tp  __result = _M_top->_M_data;
 
@@ -95,13 +96,13 @@ namespace ptl
         delete temp;
         return __result;
         }
-
+//--------------------------------------------------------------------
       auto
       peek() -> _Tp
         {
         if( is_empty() )
           throw 
-          pexception("E: Стек пуст.");
+          pexception("W: Стек пуст.");
 
         return _M_top->_M_data;
         }
