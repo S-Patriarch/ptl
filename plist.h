@@ -36,6 +36,7 @@
  *   - remove_position() - удаление узла списка по позиции
  *   - show() - вывод содержимого списка через пробел
  *   - clear() - удаление всего списка
+ *   - find() - поиск элемента в списке (найден - true, нет - false)
  *
  * @code
  *   ptl::plist<ptl::__s32> list;
@@ -128,22 +129,22 @@ namespace ptl
 
         __u32  __curr_pos{ 0 };
 
-        pnode<_Tp>* current = _M_head;
+        pnode<_Tp>* currend = _M_head;
 
         /** Идем по списку, пока список не кончится, или
          *  пока не дойдем до позиции.
          */
-        while( __curr_pos < __position - 1 && current->_M_next != nullptr )
+        while( __curr_pos < __position - 1 && currend->_M_next != nullptr )
           {
-          current = current->_M_next;
+          currend = currend->_M_next;
           __curr_pos++;
           }
 
         /** Меняем указатель на следующий узел на
          *  указатель на новый узел.
          */
-        pnode<_Tp>* next = current->_M_next;
-        current->_M_next = new_node;
+        pnode<_Tp>* next = currend->_M_next;
+        currend->_M_next = new_node;
 
         /** Связываем список обратно, меняем указатель на узел,
          *  следующий после нового узла, на указатель на узел,
@@ -252,6 +253,21 @@ namespace ptl
           }
 
         _M_head = nullptr;
+        }
+//--------------------------------------------------------------------
+      auto
+      find( _Tp __data) -> bool
+        {
+        pnode<_Tp>* currend = _M_head;        
+
+        while( currend != nullptr )
+          {
+          if( currend->_M_data == __data )
+            return true;
+          currend = currend->_M_next;
+          }
+
+        return false;
         }
     };
 
