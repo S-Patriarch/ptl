@@ -19,8 +19,6 @@
 #endif
 
 #include <iostream>
-//#include <termios.h>
-//#include <stdio.h>
 
 #ifdef _WIN32
 #include <clocale>
@@ -38,8 +36,6 @@
  *   - where_y() - возвращает установленную координату __text._S_cur_y
  *   - hcrs() - скрыть курсор
  *   - scrs() - показать курсор
- *   - //getche() - ввод одного символа с отображением этого символа
- *   - //getch() - ввод одного символа без отображения этого символа
  */
 
 namespace ptl
@@ -130,58 +126,12 @@ namespace ptl
   hcrs() -> void
     { std::cout << "\033[?25l"; }
 //--------------------------------------------------------------------
- /* 
-  * Показать курсор.
-  */ 
+  /* 
+   * Показать курсор.
+   */ 
   auto
   scrs() -> void
     { std::cout << "\033[?25h"; }
-//--------------------------------------------------------------------
-  /* 
-   * Получает пользовательский ввод в форме одного символа с 
-   * отображением этого символа на экране и без необходимости 
-   * нажимать клавишу 'Enter'.
-   * 
-  auto
-  getche() -> __u16
-    {
-    struct termios t;
-    __u16          __c;
-
-    tcgetattr( 0, &t );
-    t.c_lflag &= ~ICANON;
-    tcsetattr( 0, TCSANOW, &t );
-    fflush( stdout );
-    __c = getchar();
-    t.c_lflag |= ICANON;
-    tcsetattr( 0, TCSANOW, &t );
-
-    return __c;
-    }
-   */
-//--------------------------------------------------------------------
-  /* 
-   * Получает пользовательский ввод в форме одного символа без 
-   * отображения этого символа на экране и без необходимости 
-   * нажимать клавишу 'Enter'.
-   * 
-  auto
-  getch() -> __u16
-    {
-    struct termios t;
-    __u16          __c;
-
-    tcgetattr( 0, &t );
-    t.c_lflag &= ~ECHO + ~ICANON;
-    tcsetattr( 0, TCSANOW, &t );
-    fflush( stdout );
-    __c = getchar();
-    t.c_lflag |= ICANON + ECHO;
-    tcsetattr( 0, TCSANOW, &t );
-
-    return __c;
-    }
-   */
 
   } // namespace ptl
 

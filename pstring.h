@@ -234,19 +234,9 @@ namespace ptl
     // числу __k.
     return true;
     }
-//--------------------------------------------------------------------
-//    friend ostream& 
-//    operator<<(ostream& __os, const pstring& __s);
+
   };
-//--------------------------------------------------------------------
-/*
-  ostream& 
-  operator<<(ostream& __os, const pstring& __s)
-  {
-    __os << __s._M_string;
-    return __os;
-  }
-*/
+
 } // namespace ptl
 
 #endif // _PTL_PSTRING_H

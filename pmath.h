@@ -62,19 +62,22 @@ namespace ptl
     harmonic_mean(_Tp __array[], __u64 __size_array) -> double
     {
       if (__size_array == 0)
-        throw pexception("E: ptl::harmonic_mean() : Передан нулевой массив.");
+        throw 
+        pexception("E: ptl::harmonic_mean() : Передан нулевой массив.");
 
       double __sum{ };
       for (__u64 i = 0; i < __size_array; i++)
         {
           if (__array[i] == static_cast<_Tp>(0))
-            throw pexception("E: ptl::harmonic_mean() : Элемент массива равен нулю.");
+            throw 
+            pexception("E: ptl::harmonic_mean() : Элемент массива равен нулю.");
         
           __sum = __sum + 1.0 / __array[i];
         }
 
       if ((__sum < 0.0001) && (__sum > -0.0001))
-        throw pexception("E: ptl::harmonic_mean() : Сумма элементов массива равна нулю.");
+        throw 
+        pexception("E: ptl::harmonic_mean() : Сумма элементов массива равна нулю.");
 
       return __size_array / __sum;
     }
