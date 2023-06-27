@@ -37,7 +37,7 @@
  *   - set_color() - установить цвет индикатора
  *   - get_min() - получить минимальную процентную итерацию
  *   - get_max() - получить максимальную процентную итерацию
- *   - update() - обновить отрисовку индикатора
+ *   - update() - обновление отрисовки индикатора выполнения
  *
  * @code
  *   ptl::pbar pb;
@@ -57,32 +57,46 @@ namespace ptl
   class pbar
     {
     private:
-      __u32        _M_min_iterations{ 0 };
-      __u32        _M_max_iterations{ 100 };
-      __u16        _M_bar_width{ 30 };
-      __u16        _M_bar_color{ 1000 };
-      std::string  _M_bar{ "=" };
-      std::string  _M_style{ "complete" };
-      std::string  _M_percent{ "%" };
-      std::string  _M_message{ };
-      std::string  _M_bracket_left{ "[" };
-      std::string  _M_bracket_rigth{ "]" };
+      __u32        _M_min_iterations;
+      __u32        _M_max_iterations;
+      __u16        _M_bar_width;
+      color        _M_bar_color;
+      std::string  _M_bar;
+      std::string  _M_style;
+      std::string  _M_percent;
+      std::string  _M_message;
+      std::string  _M_bracket_left;
+      std::string  _M_bracket_rigth;
 
     public:
       pbar()
-        { }
+        {
+        _M_min_iterations = 0;
+        _M_max_iterations = 100;
+        _M_bar_width      = 30;
+        _M_bar_color      = CURRENT;
+        _M_bar            = "=";
+        _M_style          = "complete";
+        _M_percent        = "%";
+        _M_message        = "";
+        _M_bracket_left   = "[";
+        _M_bracket_rigth  = "]";
+        }
 
       ~pbar() noexcept
         { }
 //--------------------------------------------------------------------
+// Установить минимальную процентную итерацию.
       auto
       set_min( __u32 __min ) -> void
         { _M_min_iterations = __min; }
 //--------------------------------------------------------------------
+// Установить максимальную процентную итерацию.
       auto
       set_max( __u32 __max ) -> void
         { _M_max_iterations = __max; }
 //--------------------------------------------------------------------
+// Установить стиль индикатора.
       auto
       set_style( std::string __style, 
                  std::string __percent ) -> void
@@ -91,6 +105,7 @@ namespace ptl
         _M_percent = __percent;
         }
 //--------------------------------------------------------------------
+// Установить стиль индикатора.
       auto
       set_style( std::string __style, 
                  std::string __percent,
@@ -101,10 +116,12 @@ namespace ptl
         _M_bar     = __bar;
         }
 //--------------------------------------------------------------------
+// Установить сообщение индикатора.
       auto
       set_message( std::string __message ) -> void
         { _M_message = __message; }
 //--------------------------------------------------------------------
+// Установить границы индикатора.
       auto
       set_brackets( std::string __bracket_left,
                     std::string __bracket_rigth ) -> void
@@ -113,21 +130,22 @@ namespace ptl
         _M_bracket_rigth = __bracket_rigth;
         }
 //--------------------------------------------------------------------
+// Установить цвет индикатора.
       auto
-      set_color( __u16 __color ) -> void
+      set_color( color __color ) -> void
         { _M_bar_color = __color; }
 //--------------------------------------------------------------------
+// Получить минимальную процентную итерацию.
       auto
       get_min() -> __u32
         { return _M_min_iterations; }
 //--------------------------------------------------------------------
+// Получить максимальную процентную итерацию.
       auto
       get_max() -> __u32
         { return _M_max_iterations; }
 //--------------------------------------------------------------------
-      /*
-       * Обновление отрисовки индикатора выполнения.
-       */
+// Обновление отрисовки индикатора выполнения.
       auto
       update( __u32 __index ) -> void
         {
@@ -146,7 +164,7 @@ namespace ptl
           {
           if( __i <= __completed_width )
             {
-            if( _M_bar_color == 1000)
+            if( _M_bar_color == CURRENT)
               std::cout << _M_bar;
             else
               std::cout << c.esc_tb( _M_bar_color )

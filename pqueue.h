@@ -66,7 +66,6 @@ namespace ptl
     auto
     is_empty() -> bool
       { return _M_front == nullptr; }
-    };
 //--------------------------------------------------------------------
     auto
     en_queue( const _Tp& __data ) -> void
@@ -129,6 +128,8 @@ namespace ptl
         temp = temp->_M_next;
         }
       }
+    };
+
   } // namespace ptl
 
 #endif // _PTL_PQUEUE_H
