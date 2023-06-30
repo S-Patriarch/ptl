@@ -12,8 +12,8 @@
  */
 
 #pragma once
-#if !defined( _PTL_PNODE_H )
-#define _PTL_PNODE_H
+#if !defined( __PTL_PNODE_H__ )
+#define __PTL_PNODE_H__
 
 namespace ptl
   {
@@ -35,4 +35,4 @@ namespace ptl
 
   } // namespace ptl
 
-#endif // _PTL_PNODE_H
+#endif // __PTL_PNODE_H__

@@ -11,8 +11,8 @@
  */
 
 #pragma once
-#if !defined(_PTL_PTYPE_H)
-#define _PTL_PTYPE_H
+#if !defined( __PTL_PTYPE_H__ )
+#define __PTL_PTYPE_H__
 
 /*
  * __s16 - 32 767
@@ -39,4 +39,4 @@ namespace ptl
 
   } // namespace ptl
 
-#endif // _PTL_PTYPE_H
+#endif // __PTL_PTYPE_H__

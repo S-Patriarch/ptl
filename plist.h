@@ -12,14 +12,14 @@
  */
 
 #pragma once
-#if !defined( _PTL_PLIST_H )
-#define _PTL_PLIST_H
+#if !defined( __PTL_PLIST_H__ )
+#define __PTL_PLIST_H__
 
-#if !defined( _PTL_PNODE_H )
+#if !defined( __PTL_PNODE_H__ )
 #include "pnode.h"
 #endif
 
-#if !defined( _PTL_PTYPE_H )
+#if !defined( __PTL_PTYPE_H__ )
 #include "ptype.h"
 #endif
 
@@ -273,4 +273,4 @@ namespace ptl
 
   } // namespace ptl
 
-#endif // _PTL_PLIST_H
+#endif // __PTL_PLIST_H__

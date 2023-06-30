@@ -11,8 +11,8 @@
  */
 
 #pragma once
-#if !defined(_PTL_PEXCEPT_H)
-#define _PTL_PEXCEPT_H
+#if !defined( __PTL_PEXCEPT_H__ )
+#define __PTL_PEXCEPT_H__
 
 #include <exception>
 
@@ -66,4 +66,4 @@ namespace ptl
 
   } // namespace ptl
 
-#endif // _PTL_PEXCEPT_H
+#endif // __PTL_PEXCEPT_H__

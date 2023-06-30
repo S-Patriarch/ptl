@@ -11,14 +11,14 @@
  */
 
 #pragma once
-#if !defined(_PTL_PMATH_H)
-#define _PTL_PMATH_H
+#if !defined( __PTL_PMATH_H__ )
+#define __PTL_PMATH_H__
 
-#if !defined(_PTL_PTYPE_H)
+#if !defined( __PTL_PTYPE_H__ )
 #include "ptype.h"
 #endif
 
-#if !defined(_PTL_PEXCEPT_H)
+#if !defined( __PTL_PEXCEPT_H__ )
 #include "pexcept.h"
 #endif
 
@@ -92,4 +92,4 @@ namespace ptl
 
 } // namespace ptl
 
-#endif // _PTL_PMATH_H
+#endif // __PTL_PMATH_H__

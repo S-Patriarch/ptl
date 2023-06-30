@@ -11,18 +11,18 @@
  */
 
 #pragma once
-#if !defined( _PTL_PSTACK_H )
-#define _PTL_PSTACK_H
+#if !defined( __PTL_PSTACK_H__ )
+#define __PTL_PSTACK_H__
 
-#if !defined( _PTL_PNODE_H )
+#if !defined( __PTL_PNODE_H__ )
 #include "pnode.h"
 #endif
 
-#if !defined( _PTL_PTYPE_H )
+#if !defined( __PTL_PTYPE_H__ )
 #include "ptype.h"
 #endif
 
-#if !defined(_PTL_PEXCEPT_H)
+#if !defined( __PTL_PEXCEPT_H__ )
 #include "pexcept.h"
 #endif
 
@@ -110,4 +110,4 @@ namespace ptl
 
   } // namespace ptl
 
-#endif // _PTL_PSTACK_H
+#endif // __PTL_PSTACK_H__

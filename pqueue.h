@@ -11,14 +11,14 @@
  */
 
 #pragma once
-#if !defined( _PTL_PQUEUE_H )
-#define _PTL_PQUEUE_H
+#if !defined( __PTL_PQUEUE_H__ )
+#define __PTL_PQUEUE_H__
 
-#if !defined( _PTL_PNODE_H )
+#if !defined( __PTL_PNODE_H__ )
 #include "pnode.h"
 #endif
 
-#if !defined(_PTL_PEXCEPT_H)
+#if !defined( __PTL_PEXCEPT_H__ )
 #include "pexcept.h"
 #endif
 
@@ -132,4 +132,4 @@ namespace ptl
 
   } // namespace ptl
 
-#endif // _PTL_PQUEUE_H
+#endif // __PTL_PQUEUE_H__

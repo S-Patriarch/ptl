@@ -11,8 +11,8 @@
  */
 
 #pragma once
-#if !defined( _PTL_PCOLOR_H )
-#define _PTL_PCOLOR_H
+#if !defined( __PTL_PCOLOR_H__ )
+#define __PTL_PCOLOR_H__
 
 #include <string>
 
@@ -134,4 +134,4 @@ namespace ptl
 
   } // namespace ptl
 
-#endif // _PTL_PCOLOR_H
+#endif // __PTL_PCOLOR_H__
