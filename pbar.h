@@ -87,16 +87,19 @@ namespace ptl
         { }
 //--------------------------------------------------------------------
 // Установить минимальную процентную итерацию.
+//
       auto
       set_min( __u32 __min ) -> void
         { _M_min_iterations = __min; }
 //--------------------------------------------------------------------
 // Установить максимальную процентную итерацию.
+//
       auto
       set_max( __u32 __max ) -> void
         { _M_max_iterations = __max; }
 //--------------------------------------------------------------------
 // Установить стиль индикатора.
+//
       auto
       set_style( std::string __style, 
                  std::string __percent ) -> void
@@ -106,6 +109,7 @@ namespace ptl
         }
 //--------------------------------------------------------------------
 // Установить стиль индикатора.
+//
       auto
       set_style( std::string __style, 
                  std::string __percent,
@@ -117,11 +121,13 @@ namespace ptl
         }
 //--------------------------------------------------------------------
 // Установить сообщение индикатора.
+//
       auto
       set_message( std::string __message ) -> void
         { _M_message = __message; }
 //--------------------------------------------------------------------
 // Установить границы индикатора.
+//
       auto
       set_brackets( std::string __bracket_left,
                     std::string __bracket_rigth ) -> void
@@ -131,62 +137,74 @@ namespace ptl
         }
 //--------------------------------------------------------------------
 // Установить цвет индикатора.
+//
       auto
       set_color( color __color ) -> void
         { _M_bar_color = __color; }
 //--------------------------------------------------------------------
 // Получить минимальную процентную итерацию.
+//
       auto
       get_min() -> __u32
         { return _M_min_iterations; }
 //--------------------------------------------------------------------
 // Получить максимальную процентную итерацию.
+//
       auto
       get_max() -> __u32
         { return _M_max_iterations; }
 //--------------------------------------------------------------------
 // Обновление отрисовки индикатора выполнения.
+//
       auto
       update( __u32 __index ) -> void
         {
-        /** Вычисление процента выполнения.
-         */
+        // вычисление процента выполнения
         float  __progress{ static_cast<float>( __index ) / _M_max_iterations };
         __u16  __completed_width{ static_cast<__u16>( __progress * _M_bar_width ) };
 
         pcolor c;
 
-        /** Вывод индикатора выполнения.
-         */
+        // вывод индикатора выполнения
         std::cout << _M_bracket_left;
 
         for( ptl::__u16 __i{ 0 }; __i <= _M_bar_width; ++__i )
           {
           if( __i <= __completed_width )
             {
-            if( _M_bar_color == CURRENT)
-              std::cout << _M_bar;
+            if( _M_bar_color == CURRENT )
+              {
+              std::cout 
+                << _M_bar;
+              }
             else
-              std::cout << c.esc_tb( _M_bar_color )
-                        << _M_bar
-                        << c.esc_c();
+              {
+              std::cout 
+                << c.esc_tb( _M_bar_color )
+                << _M_bar
+                << c.esc_c();
+              }
             }
           else
-            std::cout << " ";
+            {
+            std::cout 
+              << " ";
+            }
           }
 
-        std::cout << _M_bracket_rigth
-                  << " "
-                  << ptl::__u16( __progress * 100.0 )
-                  << _M_percent
-                  << " "
-                  << _M_message
-                  << "\r";
+        std::cout 
+          << _M_bracket_rigth
+          << " "
+          << ptl::__u16( __progress * 100.0 )
+          << _M_percent
+          << " "
+          << _M_message
+          << "\r";
 
         std::cout.flush();
-      }
-    };
+        }
 
+    }; // class pbar
   } // namespace ptl
 
 #endif // __PTL_PBAR_H__
