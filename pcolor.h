@@ -1,14 +1,10 @@
 // -*- C++ -*-
-
-/*
- * Copyright (c) S-Patriarch, 2023
- *
- * Описание библиотеки для работы с цветовой схемой терминала.
- */
-
-/**
- *  (PTL) Patriarch library : pcolor.h
- */
+//
+// Copyright (c) S-Patriarch, 2023
+// Работа с цветовой esc-последовательностью в
+// терминале (консоле).
+//
+// (PTL) Patriarch library : pcolor.h
 
 #pragma once
 #if !defined( __PTL_PCOLOR_H__ )
@@ -16,17 +12,12 @@
 
 #include <string>
 
-/*
- * Класс описывает работу с цветовой esc-последовательностью в 
- * терминале (консоле).
- * 
- * Методы:
- *   - esc_c()  - сбрасывает цветовую esc-последовательность
- *   - esc_tr() - устанавливает обычный цвет текста
- *   - esc_tb() - устанавливает жирный цвет текста
- *   - esc_br() - устанавливает обычный цвет фона
- *   - esc_bb() - устанавливает жирный цвет фона
- */
+// Методы:
+//  - esc_c()  - сбрасывает цветовую esc-последовательность
+//  - esc_tr() - устанавливает обычный цвет текста
+//  - esc_tb() - устанавливает жирный цвет текста
+//  - esc_br() - устанавливает обычный цвет фона
+//  - esc_bb() - устанавливает жирный цвет фона
 
 namespace ptl
   {
@@ -40,93 +31,112 @@ namespace ptl
 //////////////////////////////////////////////////////////////////////
   class pcolor
     {
-    protected:
-      unsigned short int  _M_size_array{ 8 };
-
-      std::string*        _M_text_color_regular; 
-      std::string*        _M_text_color_bold;    
-      std::string*        _M_background_color_regular;
-      std::string*        _M_background_color_bold;
-      std::string         _M_color_clear;
-
     public:
-      pcolor()
-        { 
-        _M_color_clear = "\033[0m";
-
-        _M_text_color_regular = new std::string[ _M_size_array ]
-          { 
-          "\033[30m", "\033[31m", "\033[32m", "\033[33m", 
-          "\033[34m", "\033[35m", "\033[36m", "\033[37m"
-          };
-
-        _M_text_color_bold = new std::string[ _M_size_array ]
-          { 
-          "\033[30;1m", "\033[31;1m", "\033[32;1m", "\033[33;1m", 
-          "\033[34;1m", "\033[35;1m", "\033[36;1m", "\033[37;1m"
-          };
-
-        _M_background_color_regular = new std::string[ _M_size_array ]
-          { 
-          "\033[40m", "\033[41m", "\033[42m", "\033[43m", 
-          "\033[44m", "\033[45m", "\033[46m", "\033[47m"
-          };
-
-        _M_background_color_bold = new std::string[ _M_size_array ]
-          { 
-          "\033[40;1m", "\033[41;1m", "\033[42;1m", "\033[43;1m", 
-          "\033[44;1m", "\033[45;1m", "\033[46;1m", "\033[47;1m"
-          };
-        }
+      pcolor();
 
       virtual
       ~pcolor() noexcept
         { 
-        delete[] _M_text_color_regular;
-        delete[] _M_text_color_bold; 
-        delete[] _M_background_color_regular;
-        delete[] _M_background_color_bold;
+        delete[] _M_textColorRegular;
+        delete[] _M_textColorBold; 
+        delete[] _M_backgroundColorRegular;
+        delete[] _M_backgroundColorBold;
         }
+
+      auto
+      esc_c() -> std::string;
+
+      auto
+      esc_tr( color ) -> std::string;
+
+      auto
+      esc_tb( color ) -> std::string;
+
+      auto
+      esc_br( color ) -> std::string;
+
+      auto
+      esc_bb( color ) -> std::string;
+
+    protected:
+      unsigned short int  _M_sizeArray{ 8 };
+
+      std::string*        _M_textColorRegular; 
+      std::string*        _M_textColorBold;    
+      std::string*        _M_backgroundColorRegular;
+      std::string*        _M_backgroundColorBold;
+      std::string         _M_colorClear;
+    };
+//--------------------------------------------------------------------
+// Конструктор.
+//
+  pcolor::pcolor()
+    { 
+    _M_colorClear = "\033[0m";
+
+    _M_textColorRegular = new std::string[ _M_sizeArray ]
+      { 
+      "\033[30m", "\033[31m", "\033[32m", "\033[33m", 
+      "\033[34m", "\033[35m", "\033[36m", "\033[37m"
+      };
+
+    _M_textColorBold = new std::string[ _M_sizeArray ]
+      { 
+      "\033[30;1m", "\033[31;1m", "\033[32;1m", "\033[33;1m", 
+      "\033[34;1m", "\033[35;1m", "\033[36;1m", "\033[37;1m"
+      };
+
+    _M_backgroundColorRegular = new std::string[ _M_sizeArray ]
+      { 
+      "\033[40m", "\033[41m", "\033[42m", "\033[43m", 
+      "\033[44m", "\033[45m", "\033[46m", "\033[47m"
+      };
+
+    _M_backgroundColorBold = new std::string[ _M_sizeArray ]
+      { 
+      "\033[40;1m", "\033[41;1m", "\033[42;1m", "\033[43;1m", 
+      "\033[44;1m", "\033[45;1m", "\033[46;1m", "\033[47;1m"
+      };
+    }
 //--------------------------------------------------------------------
 // Возвращает строку сброса цветовой esc-последовательности.
 //
-      auto
-      esc_c() -> std::string
-        { return _M_color_clear; }
+  auto
+  pcolor::esc_c() -> std::string
+    { return _M_colorClear; }
 //--------------------------------------------------------------------
 // Устанавливает цвет текста.
 // Возвращает строку цветовой esc-последовательности обычной
-// насыщенности по заданному __index от 0 до 7 включительно.
+// насыщенности по заданному _index от 0 до 7 включительно.
 //
-      auto
-      esc_tr( color __index ) -> std::string
-        { return _M_text_color_regular[ __index ]; }
+  auto
+  pcolor::esc_tr( color _index ) -> std::string
+    { return _M_textColorRegular[ _index ]; }
 //--------------------------------------------------------------------
 // Устанавливает цвет текста.
 // Возвращает строку цветовой esc-последовательности жирной
-// насыщенности по заданному __index от 0 до 7 включительно.
+// насыщенности по заданному _index от 0 до 7 включительно.
 //
-      auto
-      esc_tb( color __index ) -> std::string
-        { return _M_text_color_bold[ __index ]; }
+  auto
+  pcolor::esc_tb( color _index ) -> std::string
+    { return _M_textColorBold[ _index ]; }
 //--------------------------------------------------------------------
 // Устанавливает цвет фона.
 // Возвращает строку цветовой esc-последовательности обычной
-// насыщенности по заданному __index от 0 до 7 включительно.
+// насыщенности по заданному _index от 0 до 7 включительно.
 //
-      auto
-      esc_br( color __index ) -> std::string
-        { return _M_background_color_regular[ __index ]; }
+  auto
+  pcolor::esc_br( color _index ) -> std::string
+    { return _M_backgroundColorRegular[ _index ]; }
 //--------------------------------------------------------------------
 // Устанавливает цвет фона.
 // Возвращает строку цветовой esc-последовательности жирной
-// насыщенности по заданному __index от 0 до 7 включительно.
+// насыщенности по заданному _index от 0 до 7 включительно.
 //
-      auto
-      esc_bb( color __index ) -> std::string
-        { return _M_background_color_bold[ __index ]; }
+  auto
+  pcolor::esc_bb( color _index ) -> std::string
+    { return _M_backgroundColorBold[ _index ]; }
 
-    }; // class pcolor
   } // namespace ptl
 
 #endif // __PTL_PCOLOR_H__
