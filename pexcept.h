@@ -14,7 +14,7 @@
 // Пример использования данного класса исключений.
 // В коде программы бросается исключение следующим образом.
 // @code
-//   throw ptl::pexception( "E: Message to exception." );
+//   throw ptl::pException( "E: Message to exception." );
 // @endcode
 // 
 // Ловится данное исключение следующим образом.
@@ -35,16 +35,16 @@
 namespace ptl
   {
 //////////////////////////////////////////////////////////////////////
-  class pexception final 
+  class pException final 
     : public std::exception
     {
     public:
-      pexception( const char* __message )
+      pException( const char* __message )
         : std::exception(), 
           _M_message( __message ) 
         { }
 
-      ~pexception() noexcept
+      ~pException() noexcept
         { }
 //--------------------------------------------------------------------
 // Перегрузка метода what() стандартного класса exception.

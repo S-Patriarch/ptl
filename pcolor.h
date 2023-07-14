@@ -22,20 +22,20 @@
 namespace ptl
   {
 //////////////////////////////////////////////////////////////////////
-  enum color
+  enum Color
     {
     BLACK   = 0, RED     = 1, GREEN = 2, YELLOW = 3,
     BLUE    = 4, MAGENTA = 5, CYAN  = 6, WHITE  = 7,
     CURRENT = 1000
     };
 //////////////////////////////////////////////////////////////////////
-  class pcolor
+  class pColor
     {
     public:
-      pcolor();
+      pColor();
 
       virtual
-      ~pcolor() noexcept
+      ~pColor() noexcept
         { 
         delete[] _M_textColorRegular;
         delete[] _M_textColorBold; 
@@ -43,20 +43,11 @@ namespace ptl
         delete[] _M_backgroundColorBold;
         }
 
-      auto
-      esc_c() -> std::string;
-
-      auto
-      esc_tr( color ) -> std::string;
-
-      auto
-      esc_tb( color ) -> std::string;
-
-      auto
-      esc_br( color ) -> std::string;
-
-      auto
-      esc_bb( color ) -> std::string;
+      auto esc_c() -> std::string;
+      auto esc_tr( Color ) -> std::string;
+      auto esc_tb( Color ) -> std::string;
+      auto esc_br( Color ) -> std::string;
+      auto esc_bb( Color ) -> std::string;
 
     protected:
       unsigned short int  _M_sizeArray{ 8 };
@@ -70,7 +61,7 @@ namespace ptl
 //--------------------------------------------------------------------
 // Конструктор.
 //
-  pcolor::pcolor()
+  pColor::pColor()
     { 
     _M_colorClear = "\033[0m";
 
@@ -102,7 +93,7 @@ namespace ptl
 // Возвращает строку сброса цветовой esc-последовательности.
 //
   auto
-  pcolor::esc_c() -> std::string
+  pColor::esc_c() -> std::string
     { return _M_colorClear; }
 //--------------------------------------------------------------------
 // Устанавливает цвет текста.
@@ -110,7 +101,7 @@ namespace ptl
 // насыщенности по заданному _index от 0 до 7 включительно.
 //
   auto
-  pcolor::esc_tr( color _index ) -> std::string
+  pColor::esc_tr( Color _index ) -> std::string
     { return _M_textColorRegular[ _index ]; }
 //--------------------------------------------------------------------
 // Устанавливает цвет текста.
@@ -118,7 +109,7 @@ namespace ptl
 // насыщенности по заданному _index от 0 до 7 включительно.
 //
   auto
-  pcolor::esc_tb( color _index ) -> std::string
+  pColor::esc_tb( Color _index ) -> std::string
     { return _M_textColorBold[ _index ]; }
 //--------------------------------------------------------------------
 // Устанавливает цвет фона.
@@ -126,7 +117,7 @@ namespace ptl
 // насыщенности по заданному _index от 0 до 7 включительно.
 //
   auto
-  pcolor::esc_br( color _index ) -> std::string
+  pColor::esc_br( Color _index ) -> std::string
     { return _M_backgroundColorRegular[ _index ]; }
 //--------------------------------------------------------------------
 // Устанавливает цвет фона.
@@ -134,7 +125,7 @@ namespace ptl
 // насыщенности по заданному _index от 0 до 7 включительно.
 //
   auto
-  pcolor::esc_bb( color _index ) -> std::string
+  pColor::esc_bb( Color _index ) -> std::string
     { return _M_backgroundColorBold[ _index ]; }
 
   } // namespace ptl

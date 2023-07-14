@@ -32,7 +32,7 @@
 //  - update() - обновление отрисовки индикатора выполнения
 //
 // @code
-//   ptl::pbar pb;
+//   ptl::pBar pb;
 //   ptl::hcrs();
 //   for( ptl::__u32 i{ pb.get_min() }; i <= pb.get_max(); ++i )
 //     {
@@ -45,49 +45,29 @@
 namespace ptl
   {
 //////////////////////////////////////////////////////////////////////
-  class pbar
+  class pBar
     {
     public:
-      pbar();
-
-      ~pbar() noexcept
+      pBar();
+      ~pBar() noexcept
         { }
 
-      auto
-      set_min( __u32 ) -> void;
-
-      auto
-      set_max( __u32 ) -> void;
-
-      auto
-      set_style( std::string, std::string ) -> void;
-
-      auto
-      set_style( std::string, std::string, std::string ) -> void;
-
-      auto
-      set_message( std::string ) -> void;
-
-      auto
-      set_brackets( std::string, std::string ) -> void;
-
-      auto
-      set_color( color ) -> void;
-
-      auto
-      get_min() -> __u32;
-
-      auto
-      get_max() -> __u32;
-
-      auto
-      update( __u32 ) -> void;
+      auto set_min( __u32 ) -> void;
+      auto set_max( __u32 ) -> void;
+      auto set_style( std::string, std::string ) -> void;
+      auto set_style( std::string, std::string, std::string ) -> void;
+      auto set_message( std::string ) -> void;
+      auto set_brackets( std::string, std::string ) -> void;
+      auto set_color( Color ) -> void;
+      auto get_min() -> __u32;
+      auto get_max() -> __u32;
+      auto update( __u32 ) -> void;
 
     private:
       __u32        _M_minIterations;
       __u32        _M_maxIterations;
       __u16        _M_barWidth;
-      color        _M_barColor;
+      Color        _M_barColor;
       std::string  _M_bar;
       std::string  _M_style;
       std::string  _M_percent;
@@ -98,7 +78,7 @@ namespace ptl
 //--------------------------------------------------------------------
 // Конструктор.
 //
-  pbar::pbar()
+  pBar::pBar()
     {
     _M_minIterations = 0;
     _M_maxIterations = 100;
@@ -115,19 +95,19 @@ namespace ptl
 // Установка минимальной процентной итерации.
 //
   auto
-  pbar::set_min( __u32 _min ) -> void
+  pBar::set_min( __u32 _min ) -> void
     { _M_minIterations = _min; }
 //--------------------------------------------------------------------
 // Установка максимальной процентной итерации.
 //
   auto
-  pbar::set_max( __u32 _max ) -> void
+  pBar::set_max( __u32 _max ) -> void
     { _M_maxIterations = _max; }
 //--------------------------------------------------------------------
 // Установка стиля индикатора.
 //
   auto
-  pbar::set_style( std::string _style, 
+  pBar::set_style( std::string _style, 
                    std::string _percent ) -> void
     {
     _M_style   = _style;
@@ -137,7 +117,7 @@ namespace ptl
 // Установка стиля индикатора.
 //
   auto
-  pbar::set_style( std::string _style, 
+  pBar::set_style( std::string _style, 
                    std::string _percent,
                    std::string _bar ) -> void
     {
@@ -149,13 +129,13 @@ namespace ptl
 // Установка сообщения индикатора.
 //
   auto
-  pbar::set_message( std::string _message ) -> void
+  pBar::set_message( std::string _message ) -> void
     { _M_message = _message; }
 //--------------------------------------------------------------------
 // Установка границ индикатора.
 //
   auto
-  pbar::set_brackets( std::string _bracketLeft,
+  pBar::set_brackets( std::string _bracketLeft,
                       std::string _bracketRigth ) -> void
     {
     _M_bracketLeft  = _bracketLeft;
@@ -165,31 +145,31 @@ namespace ptl
 // Установка цвета индикатора.
 //
   auto
-  pbar::set_color( color _color ) -> void
+  pBar::set_color( Color _color ) -> void
     { _M_barColor = _color; }
 //--------------------------------------------------------------------
 // Получение минимальной процентной итерации.
 //
   auto
-  pbar::get_min() -> __u32
+  pBar::get_min() -> __u32
     { return _M_minIterations; }
 //--------------------------------------------------------------------
 // Получение максимальной процентной итерации.
 //
   auto
-  pbar::get_max() -> __u32
+  pBar::get_max() -> __u32
     { return _M_maxIterations; }
 //--------------------------------------------------------------------
 // Обновление отрисовки индикатора выполнения.
 //
   auto
-  pbar::update( __u32 _index ) -> void
+  pBar::update( __u32 _index ) -> void
     {
     // вычисление процента выполнения
     float  _progress{ static_cast< float >( _index ) / _M_maxIterations };
     __u16  _completedWidth{ static_cast< __u16 >( _progress * _M_barWidth ) };
 
-    pcolor c;
+    pColor c;
 
     // вывод индикатора выполнения
     std::cout << _M_bracketLeft;
